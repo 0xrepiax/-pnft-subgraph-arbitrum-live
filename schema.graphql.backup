@@ -1,0 +1,220 @@
+
+/*
+type Protocol @entity {
+  "hardcoded as 'perpetual-protocol'"
+  id: ID!
+  "network name"
+  network: String!
+  "chain id"
+  chainId: String!
+  "contract version"
+  contractVersion: String!
+  "number of public markets"
+  publicMarketCount: BigInt!
+  "cumulative trading volume"
+  tradingVolume: BigDecimal!
+  "cumulative trading fee"
+  tradingFee: BigDecimal!
+  "total settlement token"
+  totalSettlementTokenBalance: BigDecimal!
+  "total non settlement tokens"
+  totalNonSettlementTokenBalances: [ProtocolTokenBalance!]
+    @derivedFrom(field: "protocol")
+  "total bad debt settled"
+  totalSettledBadDebt: BigDecimal
+  "total repaid"
+  totalRepaid: BigDecimal
+  "last updated block number"
+  blockNumber: BigInt!
+  "last updated block timestamp"
+  timestamp: BigInt!
+}
+
+type Trader @entity {
+  "format: traderAddress"
+  id: ID!
+  "total deposited settlement collateral + cumulative total pnl"
+  settlementTokenBalance: BigDecimal!
+  "total deposited non-settlement collateral"
+  nonSettlementTokenBalances: [TraderTokenBalance!]
+    @derivedFrom(field: "trader")
+  "cumulative trading volume"
+  tradingVolume: BigDecimal!
+  "cumulative realize pnl"
+  realizedPnl: BigDecimal!
+  "cumulative funding payment: - is received and + is sent"
+  fundingPayment: BigDecimal!
+  "cumulative trading fee"
+  tradingFee: BigDecimal!
+  "cumulative liquidation fee"
+  liquidationFee: BigDecimal!
+  "cumulative maker fee"
+  makerFee: BigDecimal!
+  "cumulative total pnl = realizedPnl (fee included) - fundingPayment - liquidationFee + makerFee"
+  totalPnl: BigDecimal!
+
+  "last updated block number"
+  blockNumber: BigInt!
+  "last updated block timestamp"
+  timestamp: BigInt!
+
+  dayData: [TraderDayData!] @derivedFrom(field: "trader")
+
+  "A list of markets that the traders have traded on"
+  traderMarkets: [TraderMarket!]! @derivedFrom(field: "traderRef")
+}
+
+type TraderMarket @entity {
+  "format: traderAddress-baseTokenAddress>"
+  id: ID!
+  "trader address"
+  trader: Bytes!
+  "baseToken address"
+  baseToken: Bytes!
+
+  "current taker position size"
+  takerPositionSize: BigDecimal!
+  "average open notional of the current position"
+  openNotional: BigDecimal!
+  "average entry price of the current position = abs(openNotional / positionSize)"
+  entryPrice: BigDecimal!
+  "cumulative trading volume"
+  tradingVolume: BigDecimal!
+  "cumulative realize pnl"
+  realizedPnl: BigDecimal!
+  "cumulative funding payment: - is received and + is sent"
+  fundingPayment: BigDecimal!
+  "cumulative trading fee"
+  tradingFee: BigDecimal!
+  "cumulative liquidation fee"
+  liquidationFee: BigDecimal!
+  "cumulative maker fee"
+  makerFee: BigDecimal!
+
+  "last updated block number"
+  blockNumber: BigInt!
+  "last updated block timestamp"
+  timestamp: BigInt!
+
+  "foreign key to Trader"
+  traderRef: Trader!
+  "foreign key to Market"
+  marketRef: Market!
+}
+
+type Market @entity {
+  "format: baseTokenAddress"
+  id: ID!
+  "baseToken address"
+  baseToken: Bytes!
+  "quoteToken address"
+  quoteToken: Bytes!
+  "pool address"
+  pool: Bytes!
+  "trading fee ratio"
+  feeRatio: BigDecimal!
+  "cumulative trading volume"
+  tradingVolume: BigDecimal!
+  "cumulative trading fee"
+  tradingFee: BigDecimal!
+
+  "block number the pool was added to ClearingHouse"
+  blockNumberAdded: BigInt!
+  "block timestamp the pool was added to ClearingHouse"
+  timestampAdded: BigInt!
+  "last updated block number"
+  blockNumber: BigInt!
+  "last updated block timestamp"
+  timestamp: BigInt!
+}
+
+type Token @entity(immutable: true) {
+  "format: tokenAddress"
+  id: ID!
+  "token name"
+  name: String!
+  "token symbol"
+  symbol: String!
+  "token decimals"
+  decimals: BigInt!
+}
+
+type TraderTokenBalance @entity {
+  "format: traderAddress-collateralTokenAddress"
+  id: ID!
+  "amount"
+  amount: BigDecimal!
+  "collateral token"
+  token: Token!
+
+  "foreign key to Trader"
+  trader: Trader!
+}
+
+type ProtocolTokenBalance @entity {
+  "format: collateralTokenAddress"
+  id: ID!
+  "amount"
+  amount: BigDecimal!
+  "collateral token"
+  token: Token!
+
+  "foreign key to Protocol"
+  protocol: Protocol!
+}
+
+type TraderDayData @entity {
+  "format: <trader id>-<day id>"
+  id: ID!
+  "trader address"
+  trader: Trader!
+  "timestamp"
+  date: BigInt!
+  "trading volume aggregated per day for trader"
+  tradingVolume: BigDecimal!
+  "trading fee aggregated per day for trader"
+  tradingFee: BigDecimal!
+}
+
+type Maker @entity {
+  "format: makerAddress"
+  id: ID!
+  "total collected maker fee across all openOrders"
+  collectedFee: BigDecimal!
+
+  "last updated block number"
+  blockNumber: BigInt!
+  "last updated block timestamp"
+  timestamp: BigInt!
+
+  "open orders"
+  openOrders: [OpenOrder!]! @derivedFrom(field: "makerRef")
+}
+
+type OpenOrder @entity {
+  "format: makerAddress-baseTokenAddress-lowerTick-upperTick"
+  id: ID!
+  "maker address"
+  maker: Bytes!
+  "baseToken address"
+  baseToken: Bytes!
+  "lower tick"
+  lowerTick: BigInt!
+  "upper tick"
+  upperTick: BigInt!
+  "current liquidity"
+  liquidity: BigInt!
+  "total collected maker fee"
+  collectedFee: BigDecimal!
+  "collected maker fee in this lifecycle"
+  collectedFeeInThisLifecycle: BigDecimal!
+
+  "last updated block number"
+  blockNumber: BigInt!
+  "last updated block timestamp"
+  timestamp: BigInt!
+
+  "foreign key to Maker"
+  makerRef: Maker!
+}
+*/

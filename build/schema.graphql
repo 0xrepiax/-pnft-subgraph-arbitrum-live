@@ -1,0 +1,211 @@
+type ChartTrade @entity {
+  id: ID!
+  interval: Int! # int24
+  baseToken: Bytes! # address
+  timestamp: BigInt!
+  open: BigDecimal!
+  close: BigDecimal!
+  high: BigDecimal!
+  low: BigDecimal!
+  volumeFrom: BigDecimal!
+  volumeTo: BigDecimal!
+  volume: BigDecimal!
+}
+
+type ChartFunding @entity {
+  id: ID!
+  interval: Int! # int24
+  baseToken: Bytes! # address
+  timestamp: BigInt!
+  open: BigDecimal!
+  close: BigDecimal!
+  high: BigDecimal!
+  low: BigDecimal!
+  "long or short"
+  type: String!
+  volumeFrom: BigDecimal
+  volumeTo: BigDecimal
+}
+
+type DelegateApprovalChanged @entity(immutable: true) {
+  id: Bytes!
+  delegateApproval: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type FundingPaymentSettled @entity(immutable: true) {
+  id: Bytes!
+  trader: Bytes! # address
+  baseToken: Bytes! # address
+  fundingPayment: BigInt! # int256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type LiquidityChanged @entity(immutable: true) {
+  id: Bytes!
+  maker: Bytes! # address
+  baseToken: Bytes! # address
+  quoteToken: Bytes! # address
+  lowerTick: Int! # int24
+  upperTick: Int! # int24
+  base: BigInt! # int256
+  quote: BigInt! # int256
+  liquidity: BigInt! # int128
+  quoteFee: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Paused @entity(immutable: true) {
+  id: Bytes!
+  account: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type PlatformFundChanged @entity(immutable: true) {
+  id: Bytes!
+  platformFundArg: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type PositionChanged @entity(immutable: true) {
+  id: Bytes!
+  trader: Bytes! # address
+  baseToken: Bytes! # address
+  exchangedPositionSize: BigDecimal!
+  exchangedPositionNotional: BigDecimal!
+  swappedPrice: BigDecimal!
+  marketPriceAfter: BigDecimal!
+  fee: BigInt! # uint256
+  openNotional: BigInt! # int256
+  realizedPnl: BigInt! # int256
+  sqrtPriceAfterX96: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type PositionClosed @entity(immutable: true) {
+  id: Bytes!
+  trader: Bytes! # address
+  baseToken: Bytes! # address
+  closedPositionSize: BigInt! # int256
+  closedPositionNotional: BigInt! # int256
+  openNotional: BigInt! # int256
+  realizedPnl: BigInt! # int256
+  closedPrice: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type PositionLiquidated @entity(immutable: true) {
+  id: Bytes!
+  trader: Bytes! # address
+  baseToken: Bytes! # address
+  positionNotional: BigInt! # uint256
+  positionSize: BigInt! # uint256
+  liquidationFee: BigInt! # uint256
+  liquidator: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Repeg @entity(immutable: true) {
+  id: Bytes!
+  oldMarkPrice: BigInt! # uint256
+  newMarkPrice: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TrustedForwarderChanged @entity(immutable: true) {
+  id: Bytes!
+  forwarder: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TrustedForwarderUpdated @entity(immutable: true) {
+  id: Bytes!
+  trustedForwarder: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Unpaused @entity(immutable: true) {
+  id: Bytes!
+  account: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+type AccountBalanceChanged @entity(immutable: true) {
+  id: Bytes!
+  accountBalance: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ClearingHouseChanged @entity(immutable: true) {
+  id: Bytes!
+  clearingHouse: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type FundingUpdated @entity(immutable: true) {
+  id: Bytes!
+  baseToken: Bytes! # address
+  markTwap: BigDecimal!
+  indexTwap: BigDecimal!
+  longPositionSize: BigDecimal!
+  shortPositionSize: BigDecimal!
+  shortDeltaRatio: BigDecimal!
+  longDeltaRatio: BigDecimal!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type MaxTickCrossedWithinBlockChanged @entity(immutable: true) {
+  id: Bytes!
+  baseToken: Bytes! # address
+  maxTickCrossedWithinBlock: Int! # uint24
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ExchangeOwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

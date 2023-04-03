@@ -1,0 +1,10 @@
+{
+  "arbitrum-one": {
+    "ClearingHouse": {
+      "address": "0xE9adFDCAfE3D5edB2053dEa84B5CA16C4Ac4ef0C"
+    },
+    "Exchange": {
+      "address": "0x6A7C8b0a9e6525630Af3Ef1a6054bE5d1C2ad1E8"
+    }
+  }
+}
